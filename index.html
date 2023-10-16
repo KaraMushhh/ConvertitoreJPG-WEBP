@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Webp Converter</h1>
+    <button id="bottone">Invia</button>
+    <h2 id="messaggio"></h2>
+
+    <script>
+        const { ipcRenderer } = require('electron')
+        const bottone = document.getElementById('bottone')
+        bottone.addEventListener('click',convertiImmagine);
+
+            function convertiImmagine() {
+                ipcRenderer.send('immagine:converti');
+            }
+            //mandare evento ipc 
+            //ipcRenderer.send('prova', {nome: 'Luca', congome: 'rossi'});
+        //});
+
+        // ipcRenderer.on('rispost', (event, data)=>{
+        //     console.log(data);
+        // }
+        // )
+        ipcRenderer.on('immagine.convertita', () => {
+            document.getElementById('messaggio').innerText = 'Immagine convertita con successo';
+
+        })
+    </script>
+    We are using Node.js <span id ="node-version"></span>, Chromium <span id ="chrome-version"></span>, and Electron <span id ="electron-version"></span>
+</body>
+</html>
